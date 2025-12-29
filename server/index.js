@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 require('dotenv').config();
 
 const { initializeBot, getTallies } = require('./discord-bot');
@@ -11,6 +12,9 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// Serve GIFs as static files
+app.use('/gifs', express.static(path.join(__dirname, 'gifs')));
 
 // Initialize Discord bot
 initializeBot();

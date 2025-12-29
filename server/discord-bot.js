@@ -46,9 +46,9 @@ function saveTallies(tallies) {
 }
 
 /**
- * Get a random GIF from the gifs folder
+ * Get a random GIF URL from the gifs folder
  */
-function getRandomGif() {
+function getRandomGifUrl() {
   try {
     const files = fs.readdirSync(GIFS_FOLDER).filter(file => {
       const ext = path.extname(file).toLowerCase();
@@ -61,7 +61,8 @@ function getRandomGif() {
     }
 
     const randomFile = files[Math.floor(Math.random() * files.length)];
-    return path.join(GIFS_FOLDER, randomFile);
+    const baseUrl = process.env.BOT_URL || 'http://localhost:5000';
+    return `${baseUrl}/gifs/${encodeURIComponent(randomFile)}`;
   } catch (error) {
     console.error('Error loading GIF:', error);
     return null;
@@ -373,18 +374,12 @@ async function handleTallyCommand(interaction, options) {
         }
       );
 
-    await interaction.reply({ embeds: [embed] });
-
-    const gifPath = getRandomGif();
-    console.log('GIF Path (add-win):', gifPath);
-    if (gifPath) {
-      try {
-        const attachment = new AttachmentBuilder(gifPath);
-        await interaction.followUp({ files: [attachment] });
-      } catch (error) {
-        console.error('Error sending GIF:', error);
-      }
+    const gifUrl = getRandomGifUrl();
+    console.log('GIF URL (add-win):', gifUrl);
+    if (gifUrl) {
+      embed.setImage(gifUrl);
     }
+    await interaction.reply({ embeds: [embed] });
   }
 
   if (subcommand === 'add-loss') {
@@ -508,13 +503,11 @@ async function handleTallyCommand(interaction, options) {
       }
     }
 
-    await interaction.reply({ embeds: [embed] });
-
-    const gifPath = getRandomGif();
-    if (gifPath) {
-      const attachment = new AttachmentBuilder(gifPath);
-      await interaction.followUp({ files: [attachment] });
+    const gifUrl = getRandomGifUrl();
+    if (gifUrl) {
+      embed.setImage(gifUrl);
     }
+    await interaction.reply({ embeds: [embed] });
   }
 
   if (subcommand === 'list') {
@@ -591,17 +584,11 @@ async function handleTallyCommand(interaction, options) {
       });
     }
 
-    await interaction.reply({ embeds: [embed] });
-
-    const gifPath = getRandomGif();
-    if (gifPath) {
-      try {
-        const attachment = new AttachmentBuilder(gifPath);
-        await interaction.followUp({ files: [attachment] });
-      } catch (error) {
-        console.error('Error sending GIF:', error);
-      }
+    const gifUrl = getRandomGifUrl();
+    if (gifUrl) {
+      embed.setImage(gifUrl);
     }
+    await interaction.reply({ embeds: [embed] });
   }
 
   if (subcommand === 'delete') {
