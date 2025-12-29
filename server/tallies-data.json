@@ -1,0 +1,26 @@
+{
+  "2k26": {
+    "Matin vs Ryu": {
+      "Matin": {
+        "wins": 0,
+        "losses": 1
+      },
+      "Ryu": {
+        "wins": 3,
+        "losses": 0
+      },
+      "createdAt": "2025-12-29T00:04:01.276Z"
+    },
+    "Harper vs Ryu": {
+      "Harper": {
+        "wins": 1,
+        "losses": 0
+      },
+      "Ryu": {
+        "wins": 0,
+        "losses": 1
+      },
+      "createdAt": "2025-12-29T00:07:12.116Z"
+    }
+  }
+}
