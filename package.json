@@ -1,0 +1,13 @@
+{
+  "name": "discord-habbo",
+  "version": "1.0.0",
+  "description": "Discord Tally Bot",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "cd server && npm install && npm start",
+    "dev": "cd server && npm run dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
